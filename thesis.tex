@@ -1,0 +1,44 @@
+\documentclass[a4paper,12pt,twoside]{report}
+\usepackage[left=2.5cm,right=2.5cm,top=3cm,bottom=3cm]{geometry}
+
+\include{thesis.preamble}
+
+
+\begin{document}
+
+\title{\LARGE {\bf Light Transport and Quantum Walk through Complex Nanophotonic Networks}\\
+ \vspace*{6mm}
+}
+
+\author{Xiyue Wang}
+\submitdate{September 2018}
+
+\normallinespacing
+\maketitle
+
+\preface
+\input{abstract/abstract}
+\input{acknowledgements/acknowledgements}
+%\input{dedication/dedication}
+%\input{quotes/quotes}
+
+\body
+% main
+\input{ch1/introduction}
+
+\input{ch2/theory}
+
+\input{ch3/simulation}
+
+\input{ch4/experiment}
+
+\appendix
+% appendices come here
+
+
+% bibliography
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliographystyle{abbrv}
+\bibliography{bibliography/MRes_project}
+
+\end{document}
