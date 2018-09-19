@@ -87,15 +87,16 @@
 }
 
 \def\preface{
-    %\pagenumbering{roman}
+    \pagenumbering{roman}
     \pagestyle{plain}
     \doublespacing
 }
 
 \def\body{
-    %\cleardoublepage    
+    \clearpage    
     %\pagestyle{uheadings}
-    \tableofcontents
+    %\tableofcontents
+    \pagenumbering{arabic}
     \pagestyle{plain}
 %     \cleardoublepage
 %     \pagestyle{uheadings}
