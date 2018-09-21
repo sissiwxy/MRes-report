@@ -23,22 +23,226 @@ The networks are normalised to have height $1$ and varying widths, which we refe
     \label{fig:example_voronoi}
 \end{figure}
 
-We will again start by analysing the behaviour of classical electromagnetic waves, and then adapt the simulation to quantum light.
+The randomness of the graphs (and the scattering process) is thus captured in the distribution of network edge lengths and node degrees. Roughly, the nodes randomise the intensity of back-scattering, while the edges randomise the relative phases between back-scattered waves. 
+In the following sections, we will start by analysing the transport behaviour of classical electromagnetic waves, then adapt the simulation to quantum light.
 
 \section{Scaling theory and localisation}
-In the previous chapter we have constructed a bottom-up picture of the complex networks. To study multiple scattering and localisation properties, we need to take a top-down, statistical approach. There are several ways to characterise the localisation regime of a disordered system; the one we will focus on is scaling theory \cite{Muller2011,Abrahams1979}.
+In the previous chapter we have constructed a bottom-up picture of the complex networks. To study multiple scattering and localisation properties, we need to take a top-down, statistical approach. There are several ways to characterise the localisation regime of a disordered system; the one we will focus on is scaling theory. The background on scaling theory in this section is based largely on \cite{Muller2011}. %\cite{Muller2011,Abrahams1979}.
 
-A short note on dimensionality is necessary before we proceed. Up until this point the networks have been described as 2D systems since they are planar graphs. However, although embedded in 2D space, they are not necessarily equivalent to 2D disordered systems in the context of multiple scattering.  
+A short note on dimensionality is necessary before we proceed. Up until this point the networks have been described as 2D systems since they are planar graphs embeded in 2D space. However, they are not necessarily equivalent to 2D disordered systems in the context of multiple scattering. Within nanophotonic systems, multiple-scattering can be modelled with a network geometry under the coupled-dipole approximation \cite{Yurkin2007}. On the other hand, multiple scattering is usually achieved by sending a plane wave into a bulk material, with disorder along one \cite{Sheinfux2017}, two \cite{Schwartz2007} or three \cite{Wiersma1997} dimensions. This is different from our setup where plane waves are injected independently into each input edge. Thus the complex network can be seen as either a discretised model for 2D disordered media with wavefront shaping abilities, or a quasi-1D system where the different spatial channels are coupled via network modes. It is for this reason we only vary the network depth $D$ in one dimension when simulating scaling properties of the system.
+
+A scaling theory characterises the a physical system's properties as a function of its size $L$. In our example, $L \sim D$. Scaling theory studies \textit{universal} properties, i.e. properties that hold statistically across many realisations of the same random system, characterised by its level of disorder. Strong localisation is manifested by the scaling of transmission intensity, which we denote $I_t$:
+\begin{equation}
+    \label{eq:scaling}
+    I_t(L) = e^{-L/\xi_{loc}}
+\end{equation}
+i.e. transmission is exponentially suppressed by the \textit{localisation length} $\xi_{loc}$. In one dimension, $\xi_{loc}=1/n|\textrm{ln}I_{t1}|$, where $n$ is the number density of scattering sites and $I_{t1}$ is the power transmission of one scattering event. For non-relativistic matter waves, $\xi_{loc} \approx 2l$, $l$ being the transport mean free path. \cite{Muller2011}
+
+The relation in Eq.\ref{eq:scaling} is significant in that it differs from non-coherent scattering, i.e. diffusion. Diffusive systems follow Ohm's law, where the resistance grows linearly with $L$, whereas in a strongly localised system the resistance grows exponentially. To see this we define the \textit{conductance} $g=I_t/(1-I_t)$, and the \textit{proper resistance} $g^{-1} \in [0, \inf]$. Then from Eq.\ref{eq:scaling},
+\begin{equation}
+    \label{eq:scaling_conductance}
+    g(L) = \frac{1}{e^{L/\xi_{loc}} - 1} = \begin{cases} 
+   \frac{\xi_{loc}}{L} & \text{if } L\ll \xi_{loc} \\
+   e^{-L/\xi_{loc}}       & \text{if } L\gg \xi_{loc}
+  \end{cases},
+\end{equation}
+thus $g^{-1}$ is linear in $L$ in the diffusive regime and exponential in the localised regime. This effect in our network model is demonstrated in Fig.\ref{fig:delaunay_scaling}.
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.8\textwidth]{ch3/fig3/delaunay_scaling.png}
+    \caption{$g^{-1}(D)$ for Delaunay networks of various node number densities $n=N/D$, averaged over 1000 realisations of each network. For denser networks, we move away from the linear Ohmic regime into the localised regime. This is computationally expensive so we did not repeat the same analysis for Voronoi graphs, but we have included one (dashed line) to show similar scaling behaviour.} 
+    \label{fig:delaunay_scaling}
+\end{figure}
+
+Another way to characterise localisation is by fluctuations in the output spectrum \cite{Muller2011}. In contrast to scaling theory, this feature can be observed in a single transport spectrum, without averaging across different realisations of the disordered medium. Fig.\ref{fig:spectrum_microwave} demonstrates this effect observed experimentally in a 3D disordered medium \cite{Genack2005}; Fig.\ref{fig:spectrum_localised} and Fig.\ref{fig:spectrum_diffusive} are results from our simulation.
+
+\begin{figure}[htp]
+  \centering
+    \includegraphics[width=0.9\textwidth]{ch3/fig3/spectrum_microwave.jpg}
+    \caption{Transmitted microwave intensity spectra; the disordered medium is aluminium spheres contained in a copper tube. The diffusive regime (a) has broader spectral peaks compared with the sharp fluctuations in the localised regime (b). \cite{Genack2005}} 
+    \label{fig:spectrum_microwave}
+\end{figure}
 
 
+\begin{figure}[hbp]
+  \centering
+    \includegraphics[width=0.95\textwidth]{ch3/fig3/example2_spectra_N500D05d.png}
+    \caption{Normalised output spectra at two different output ports on a localised network ($n=1000$). The input is a uniform spectrum across $700\mu m-704\mu m$ injected into the edge labelled with a red marker. The output ports are labelled in dark blue and green.The two outputs have different spectral profiles, but both contain very sharp peaks.} 
+    \label{fig:spectrum_localised}
+\end{figure}
 
 
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.95\textwidth]{ch3/fig3/example2_spectra_N50D05d.png}
+    \caption{Same analysis as in Fig.\ref{fig:spectrum_localised}, but on a diffusive network ($n=100$). The transmission spectra have significantly broader peaks, similar to that in Fig.\ref{fig:spectrum_microwave}.} 
+    \label{fig:spectrum_diffusive}
+\end{figure}
 
--mention coupled-dipole approximation \cite{Yurkin2007}
 
 
 \section{Transmission and response modes}
+Statistical analysis (e.g.resistance scaling) of complex disordered systems can illustrate their universal properties. However, for the purpose of light state engineering using complex networks, we deal with individual realisations of such networks instead of a large collection of them. We will therefore zoom in again and look at response mode structures within individual networks (cf. section \ref{sec:response_mode_def}).
+
+We will look at two types of network responses, whose intensity profile throughout the entire network (not just the input and output ports) are referred to as \textit{response modes} and \textit{channel modes}. Response modes are columns in the response matrix $R$ defined in Eq.\ref{eq:R}; they are field distributions within a network generated by injecting a unit-intensity input at a single input port. Given $R$ we can obtain the transmission matrix $T$, and singular value decomposition (SVD) yields
+\begin{equation}
+    \label{eq:T_SVD}
+    T = USV^\dagger,
+\end{equation}
+where $U$, $V$ are unitary and $S$ is diagonal. A channel mode is the network response generated by injecting fields across the input ports given by a column in $V$, i.e. a right eigenvector of $T$. Each channel mode has conductance given by the diagonal elements of $S$. Fig.\ref{fig:response_mode_examples} and Fig.\ref{fig:channel_mode_examples} show examples of both types of modes. To characterise the transport property of each setup, we consider the \textit{transmission}, which is simply the transmitted power, or intensity (elements of $T$ squared). Unless otherwise specified, the term refers to total transmission, i.e. sum of output intensities at all output ports.
+
+\vspace{1cm}
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{ch3/fig3/response_mode_N50D05d.png}
+        %\caption{}
+        %\label{fig:gull}
+    \end{subfigure}
+~\quad\quad
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{ch3/fig3/response_mode_N500D05d.png}
+        %\caption{}
+    \end{subfigure}
+    \caption{Example response modes; these are the same networks and input ports as in Fig.\ref{fig:spectrum_localised} and Fig.\ref{fig:spectrum_diffusive}. Colours on each network show relative average field intensities on the edges, and the coloured strip on the right shows spatial distribution of output intensities (location not perfectly aligned with output ports). Colourbar shows scale for the output distribution.}\label{fig:response_mode_examples}
+\end{figure}
+
+
+\begin{figure}[htp]
+    \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{ch3/fig3/channel_mode_N50D05d.png}
+        %\caption{}
+        %\label{fig:gull}
+    \end{subfigure}
+~\quad\quad
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{ch3/fig3/channel_mode_N500D05d.png}
+        %\caption{}
+    \end{subfigure}
+    \caption{Example channel modes. The coloured strip to the left of each network plots the input intensities of a right eigenvector of $T$.}\label{fig:channel_mode_examples}
+\end{figure}
+
+
+\begin{figure}[hbp]
+    \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{ch3/fig3/N50d_singleT.png}
+        %\caption{}
+        %\label{fig:gull}
+    \end{subfigure}
+~\quad\quad
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{ch3/fig3/N50d_totalT.png}
+        %\caption{}
+    \end{subfigure}
+    \caption{Transmission distribution across a range of $k$'s for the $N=50$ network from above. Left figure looks at transmitted intensities at individual output ports; right figure looks at the total transmission. Note that the channel modes achiever better transmission by utilising wavefront shaping.}\label{fig:N50_T_hist}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{ch3/fig3/N500d_singleT.png}
+        %\caption{}
+        %\label{fig:gull}
+    \end{subfigure}
+~\quad\quad
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{ch3/fig3/N500d_totalT.png}
+        %\caption{}
+    \end{subfigure}
+    \caption{Transmission distribution across a range of $k$'s for the $N=500$ network from above. Although this is a localised network, channel modes still achieve high overall transmission.}\label{fig:N500_T_hist}
+\end{figure}
+
+
+We look at transmission of the two example networks at a range of $k$'s corresponding to wavelengths $\lambda \in[ 500\mu m , 890 \mu m]$. The resulting transmission distributions are shown in Fig.\ref{fig:N50_T_hist}, Fig.\ref{fig:N500_T_hist}. An important observation is that by picking out the most conductive channel modes using wavefront shaping, one can achieve high transmission even in a localised network.
+
+\subsection{Mode size and transmission}
+One feature of interest is to look at the size of a response or channel mode in relation to its transmission. Mode size is characterised by inverse participation ratio (IPR), 
+\begin{equation}
+    \label{eq:IPR}
+    IPR = \frac{\int (E^2)^2 dx}{(\int E^2 dx)^2},
+\end{equation}
+Where the integral is over $E$ field on an entire network. This is the integral over density of $E^2$, analogous to the definition of purity of a density operator in quantum information. IPR captures the degree of localisation of a field distribution (mode): the higher the IPR, the more spatially confined a mode is. Fig.\ref{fig:spectrum_localised} and Fig.\ref{fig:spectrum_diffusive} show the corresponding IPR for each example.
+
+\begin{figure}[htp]
+  \centering
+    \includegraphics[width=0.8\textwidth]{ch3/fig3/IPRvsT_N50dexample.png}
+    \caption{Output transmissions vs. IPR for the $N=50$ network from above. We see the intuitive correlation that the higher the IPR, i.e. the more localised the modes are, the less they transmit. Note that the distribution along the $y$-axis is the same as that shown in Fig.\ref{fig:N50_T_hist}. As seen before, the channel modes result in concentrated output intensity in some output ports (with overall higher transmission) and zero in others.} 
+    \label{fig:IPRvsT_N50}
+\end{figure}
+
+\begin{figure}[hbp]
+  \centering
+    \includegraphics[width=0.8\textwidth]{ch3/fig3/IPRvsT_N500dexample.png}
+    \caption{Same analysis as above but for the $N=500$ network. In the localised regime we see a stronger correlation between transmission and IPR.} 
+    \label{fig:IPRvsT_N500}
+\end{figure}
+
+\begin{figure}[htp]
+  \centering
+    \includegraphics[width=0.75\textwidth]{ch3/fig3/compare_delaunay.png}
+    \caption{The same output transmission vs. IPR analysis as above, but for a range of Delaunay graphs with different $N$ and $D$ values. Note that scaling up networks with the same density $n=N/D$ (shown here in dark blue, red, and purple) has a smaller effect than stretching networks of the same $N$ to different sizes and varying $n$ (shown here in purple, green, and light blue).} 
+    \label{fig:compare_delaunay}
+\end{figure}
+
+\begin{figure}[hbp]
+  \centering
+    \includegraphics[width=0.75\textwidth]{ch3/fig3/compare_voronoi.png}
+    \caption{Same as Fig.\ref{fig:compare_delaunay} but for Voronoi networks. A similar trend is observed.} 
+    \label{fig:compare_voronoi}
+\end{figure}
+
+
+
+\subsection{$k$-dependence}
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.8\textwidth]{ch3/fig3/kmodes_N50D05d.png}
+    \caption{Same analysis as above but for the $N=500$ network. In the localised regime we see a stronger correlation between transmission and IPR.} 
+    \label{fig:kmodes_N50D05d}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.8\textwidth]{ch3/fig3/kmodes_N500D05d.png}
+    \caption{Same analysis as above but for the $N=500$ network. In the localised regime we see a stronger correlation between transmission and IPR.} 
+    \label{fig:kmodes_N500D05d}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.8\textwidth]{ch3/fig3/kmodes_N500D05v.png}
+    \caption{Same analysis as above but for the $N=500$ network. In the localised regime we see a stronger correlation between transmission and IPR.} 
+    \label{fig:kmodes_N500D05v}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.8\textwidth]{ch3/fig3/kmodes_N1000D20v.png}
+    \caption{Same analysis as above but for the $N=500$ network. In the localised regime we see a stronger correlation between transmission and IPR.} 
+    \label{fig:kmodes_N1000D20V}
+\end{figure}
+
+
+
+\section{Absorption and Loss}
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.8\textwidth]{ch3/fig3/edge_loss.png}
+    \caption{Same analysis as above but for the $N=500$ network. In the localised regime we see a stronger correlation between transmission and IPR.} 
+    \label{fig:edge_loss}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.8\textwidth]{ch3/fig3/node_loss.png}
+    \caption{Same analysis as above but for the $N=500$ network. In the localised regime we see a stronger correlation between transmission and IPR.} 
+    \label{fig:node_loss}
+\end{figure}
+
 
 \section{Boson sampling and quantum interference}
-
-\section{Tuning and Loss}

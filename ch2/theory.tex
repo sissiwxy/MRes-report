@@ -87,6 +87,7 @@ The transmission matrix between the input and output coefficients is therefore
 where the subscript on the right hand side signifies that we pick out only the rows corresponding to output ports.
 
 \subsection{Responses and modes}
+\label{sec:response_mode_def}
 Notice that the matrix $-B^{-1}A$ from the previous section gives us information on all the coefficients as a function of the inputs. Although the internal edges are not experimentally accessible, they help us understand the behaviour of the network. We call $(X_{out},X_{other})^t$ the \textit{response} of $X_{in}$, and define the response matrix $R$:
 \begin{equation}
     \label{eq:R}
@@ -197,7 +198,7 @@ from which we can compute the transmission
     \frac{2}{3}e^{ikL_1}  & \frac{2}{3}e^{ikL_2} & -\frac{1}{3}e^{ikL_3} \end{pmatrix}.
 \end{equation}
 
-The transmission matrix is symmetric for the three edges as expected. Given a unit-amplitude input on a certain edge, $1/3$ is reflected, while the other two edges each gets a $2/3$ amplitude output. This illustrates another caveat of our wave-on-a-graph model, that it does not take into account the angles at which edges meet at a node. Realistically, the transmission vs. reflection ratio would depend on the angle. Most of the light sent in through an edge would be reflected if the two other edges are perpendicular to it, while most would be transmitted if the two outputs are at a small angle from the input edge. 
+The transmission matrix is symmetric for the three edges as expected. Given a unit-amplitude input on a certain edge, $1/3$ is reflected, while the other two edges each gets a $2/3$ amplitude output. This illustrates another caveat of our wave-on-a-graph model, that it does not take into account the angles at which edges meet at a node. Realistically, the transmission vs. reflection ratio would depend on the angle. Most of the light sent in through an edge would be reflected if the two other edges are perpendicular to it, while most would be transmitted if the two outputs are at a small angle from the input edge. However, equal power splitting at nodes have been observed in similar resonant waveguide networks with more regular geometries \cite{Feigenbaum2010}.
 
 To introduce $k$-dependent behaviour into our networks, we need to include closed loops. The simplest example is the tadpole geometry, with one closed ring connected to one external edge. An extra node is introduced along the ring to avoid non-zero entries on the diagonal of the adjacency matrix. We can again write down  
 
