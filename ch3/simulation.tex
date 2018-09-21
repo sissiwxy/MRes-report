@@ -183,7 +183,7 @@ Where the integral is over $E$ field on an entire network. This is the integral 
 \begin{figure}[htp]
   \centering
     \includegraphics[width=0.75\textwidth]{ch3/fig3/compare_delaunay.png}
-    \caption{The same output transmission vs. IPR analysis as above, but for a range of Delaunay graphs with different $N$ and $D$ values. Note that scaling up networks with the same density $n=N/D$ (shown here in dark blue, red, and purple) has a smaller effect than stretching networks of the same $N$ to different sizes and varying $n$ (shown here in purple, green, and light blue).} 
+    \caption{The same output transmission vs. IPR analysis as above, but for a range of Delaunay graphs with different $N$ and $D$ values. Note that in terms of output transmission, scaling up networks with the same density $n=N/D$ (shown here in dark blue, yellow, and light blue) has a stronger effect than stretching networks of the same $N$ to different sizes (purple, green, and light blue). Networks of the same $D$ but different $n$ (dark blue, red, purple) show greater variation in IPR than transmission. We also observe as before a stronger correlation between transmission and IPR for networks with larger $n$.} 
     \label{fig:compare_delaunay}
 \end{figure}
 
@@ -194,55 +194,132 @@ Where the integral is over $E$ field on an entire network. This is the integral 
     \label{fig:compare_voronoi}
 \end{figure}
 
-
+In particular, we look at the correspondence between the IPR of a response or channel mode in relation to a) its transmission in individual output ports, and b) the total transmission. We observe in all cases that a more localised mode (with higher IPR) generally has lower transmission than a less localised one (Fig.\ref{fig:IPRvsT_N50} and Fig.\ref{fig:IPRvsT_N500}), and the effect is stronger in a larger network. This makes sense since for a network in the localised regime, a spatially confined (localised) mode is harder to access simultaneously by the inputs on the left and the outputs on the right.
+Fig.\ref{fig:compare_delaunay} and Fig.\ref{fig:compare_voronoi} conduct the same analysis on a range of Delaunay and Voronoi networks with varying $N$, $D$, and $n=N/D$. For both types of networks we find that varying $D$ while keeping $n$ constant has the greatest effect on transmission, while varying $n$ for the same $D$ has a larger effect on IPR than transmission. This can be understood by noting that $n$ sets the degree of disorder, and thus $\xi_{loc}$, and that transmission is determined by the ratio $D/\xi_{loc}$ (cf. Eq.\ref{eq:scaling}).
 
 \subsection{$k$-dependence}
+As we have seen (e.g. Fig.\ref{fig:spectrum_localised}) the networks, particularly those in the localised regime, display highly $k$-dependent transport behaviour. We look at the channel mode profiles at various $k$ in various networks in figures \ref{fig:kmodes_N50D05d}, \ref{fig:kmodes_N500D05d}, \ref{fig:kmodes_N500D05v}, and \ref{fig:kmodes_N1000D20V}.
 
-\begin{figure}[h]
+These examples show a wide range of channel mode behaviours, and demonstrate the different frequency response in different networks. More interestingly, we see the open channels couple to resonant, localised network modes. A feature of note is that for channels with localised field intensity within the network and high transmission (e.g. $k=3642$ in Fig.\ref{fig:kmodes_N500D05v} and Fig.\ref{fig:kmodes_N1000D10V}), the localised network modes tend to be in the middle of the network along the $x$-axis. This is because a mode in the middle is more likely to be simultaneously accessed by open ports on both left and right. In the context of electrons in solids (i.e. wavefunctions instead of electromagnetic waves), this means it is easier to achieve transmission by tunnelling into and out of a mode localised in the middle \cite{Muller2011}.
+
+\begin{figure}[htp]
   \centering
     \includegraphics[width=0.8\textwidth]{ch3/fig3/kmodes_N50D05d.png}
-    \caption{Same analysis as above but for the $N=500$ network. In the localised regime we see a stronger correlation between transmission and IPR.} 
+    \caption{Input, output, and mode profiles for the most conductive channel mode at various $k$'s, for the same $N=50, D=0.5$ Delaunay network as before. This is a diffusive network; we see no spatial confinement of channel modes and relatively high transmission in all cases.} 
     \label{fig:kmodes_N50D05d}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[hbp]
   \centering
-    \includegraphics[width=0.8\textwidth]{ch3/fig3/kmodes_N500D05d.png}
-    \caption{Same analysis as above but for the $N=500$ network. In the localised regime we see a stronger correlation between transmission and IPR.} 
+    \includegraphics[width=0.9\textwidth]{ch3/fig3/kmodes_N500D05d.png}
+    \caption{Input, output, and mode profiles for the most conductive channel mode at various $k$'s, for the same $N=500, D=0.5$ Delaunay network as before. We begin to see localisation effects. For the $k=2824$ example, field intensity is concentrated in a small region in the network, but the total transmission is very high: both the input and output ports are coupled to a network mode in the middle.} 
     \label{fig:kmodes_N500D05d}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[htp]
   \centering
-    \includegraphics[width=0.8\textwidth]{ch3/fig3/kmodes_N500D05v.png}
-    \caption{Same analysis as above but for the $N=500$ network. In the localised regime we see a stronger correlation between transmission and IPR.} 
+    \includegraphics[width=0.9\textwidth]{ch3/fig3/kmodes_N500D05v.png}
+    \caption{Same as above but for the $N=500, D=0.5$ Voronoi network. In the $k=3642$ example, a wide range of input ports is used to couple to a localised mode and achieve high transmission.} 
     \label{fig:kmodes_N500D05v}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[hbp]
   \centering
-    \includegraphics[width=0.8\textwidth]{ch3/fig3/kmodes_N1000D20v.png}
-    \caption{Same analysis as above but for the $N=500$ network. In the localised regime we see a stronger correlation between transmission and IPR.} 
-    \label{fig:kmodes_N1000D20V}
+    \includegraphics[width=1\textwidth]{ch3/fig3/kmodes_N1000D10v.png}
+    \caption{$N=1000, D=1.0$ Voronoi network. The more conductive channels tend to couple to network modes in the middle (e.g. $k=2642$).} 
+    \label{fig:kmodes_N1000D10V}
 \end{figure}
 
 
 
 \section{Absorption and Loss}
+Experimental realisations of complex nanophotonic networks will inevitably have imperfections. One likely imperfection is loss, either by absorption of the material or out-of-plane scattering. Absorptions in waveguide materials such as silicon nitride are low, but large out-of-plane scattering at nodes have been observed in similar random networks \cite{Gaio2017}. Loss is an important effect to study because the theory of coherent multiple scattering holds for \textit{elastic} scattering, therefore localisation theory only holds for sufficiently low losses \cite{Muller2011}.
 
-\begin{figure}[h]
+Loss is introduced into our model in two ways. The simplest approach is to add a positive imaginary part to the wavenumber $k$. This most directly models uniform absorption along the edges, but can also serve as an approximation that distributes any loss uniformly across the network. The second approach introduces loss at each node by modifying the second continuity condition Eq.\ref{eq:in=out}:
+
+\begin{equation}
+    \label{eq:in=out+loss}
+    [1-\textrm{loss}(x_i)] \cdot \sum \Psi_{\textrm{ingoing}} (x_i) = \sum \Psi_{\textrm{outgoing}} (x_i).
+\end{equation}
+
+This is a more realistic model which allows us to introduce different losses at each node. Fig.\ref{fig:edge_loss} and Fig.\ref{fig:node_loss} show that localisation effects are smeared out for sufficiently large losses using either approach (cf. Fig.\ref{fig:spectrum_microwave}).
+
+Broadened spectral peaks for transmission though a lossy network can also be understood using the physical pictures introduced in section \ref{sec:physical_picture}. In particular, we can view the modes of a network as resonant modes supported by a collection of coupled ring resonators. If these resonators are lossy, the low Q factors will show up as broadened peaks in a transmission spectrum.
+
+\begin{figure}[htp]
   \centering
     \includegraphics[width=0.8\textwidth]{ch3/fig3/edge_loss.png}
-    \caption{Same analysis as above but for the $N=500$ network. In the localised regime we see a stronger correlation between transmission and IPR.} 
+    \caption{Effect of loss on transmission spectra by adding an imaginary part to $k$. Broadening of the peaks (this is the same example as in Fig.\ref{fig:spectrum_localised}) signify the absence of localisation. Solid lines show original spectra, dashed lines are modified spectra with loss.} 
     \label{fig:edge_loss}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[hbp]
   \centering
     \includegraphics[width=0.8\textwidth]{ch3/fig3/node_loss.png}
-    \caption{Same analysis as above but for the $N=500$ network. In the localised regime we see a stronger correlation between transmission and IPR.} 
+    \caption{Loss introduced by adding a $10\%$ loss at each internal node. This shows different modifications to the spectra than the approach in Fig.\ref{fig:edge_loss}, but broadens the spectral peaks nonetheless. Solid lines are oiginal spectra, dashed lines spectra with loss.} 
     \label{fig:node_loss}
 \end{figure}
 
 
 \section{Boson sampling and quantum interference}
+We will now introduce quantum interference effects using the approach discussed in section \ref{sec:quantisation}. Namely, we use the same $T$ matrices obtained classically, but treat the output vectors as superpositions of different output locations, and let them interfere as Bosonic field operators.
+
+Interference between two single-photon inputs is investigated as a basic example for quantum phenomena. For the sake of comparison, we use the same $N=50, D=0.5$ Delaunay network as before. The rest of this section looks at three different input configurations.
+
+\begin{itemize}
+    \item \textbf{same $k$, same $x$}
+    
+    The scenario of two indistinguishable photons, i.e. two with the same frequency as well as input location, is a analogous to the Hong-Ou-Mandel effect on a beam-splitter. We have neglected photon/light polarisation so far as it is not modified by the networks. Since the networks are linear, any coherence in polarisation will also be preserved. We will thus assume all photons have the same polarisation and suppress this degree of freedom in the following discussions.
+    
+    Indistinguishable inputs result in identical output wavefunctions that self-interfere. Given two identical inputs $a^\dagger(x_l,k)$,
+    \begin{align}
+\label{eq:samexsamek}
+        \Phi_{out} &= \bigg(\sum_m c_{lm}a^\dagger(x_m, k)\bigg)^2\\ \nonumber
+          &= \sum_m c_{lm}^2 a^\dagger_m a^\dagger_m + 2\sum_{m,n} c_{lm}c_{ln} a^\dagger_m a^\dagger_n
+\end{align}
+    Where $m,n$ are indices ranging over the input ports, $c_{lm} = T(k)_{m,l}$. In the second line we have abbreviated $a^\dagger(x_m, k) = a^\dagger_m$ since $k$ is unaffected. We have grouped the off-diagonal interference terms together since $a^\dagger_m$ and $a^\dagger_n$ commute for outputs $m \neq n$. Fig.\ref{fig:samexsamek} compares quantum and classical transport.
+    
+    \begin{figure}[ht]
+    \centering
+    \begin{subfigure}[b]{0.5\textwidth}
+        \includegraphics[width=\textwidth]{ch3/fig3/T3585_Q.png}
+        %\caption{}
+        %\label{fig:gull}
+    \end{subfigure}
+    ~
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{ch3/fig3/T3585_QvC.png}
+        %\caption{}
+    \end{subfigure}
+    \caption{Quantum interference of two indistinguishable photon inputs, same network and input port as in Fig.\ref{fig:spectrum_localised}, $k=3585$. Left figure shows the quantum output probability distribution, it is symmetrical as expected. Right figure compares the diagonal elements to the classical transport output; there is no pronounced effect like the HOM dip but we do see suppression of certain peaks.}
+    \label{fig:samexsamek}
+\end{figure}
+    
+    
+    \item \textbf{same $k$, different $x$}
+    
+    We now consider interference between two photons of the same $k$ injected at different input ports. This is a minimal example of boson sampling using complex networks. Boson sampling is a passive, linear photonic process that is classically hard to simulate, first proposed by S.Aaronson \cite{Aaronson2010}. We inject $p$ photons of the same frequency into a linear optical circuit and observe $p$ photon outputs; this has high computational complexity since bosonic wave equations are symmetric under exchange and computing output probabilities involves computing matrix permanents, a $P\#$ problem \cite{Gard2014}. Example shown in Fig.\ref{fig:diffxsamek}.
+    
+    \begin{figure}[ht]
+    \centering
+    \begin{subfigure}[b]{0.5\textwidth}
+        \includegraphics[width=\textwidth]{ch3/fig3/BS_Q.png}
+        %\caption{}
+        %\label{fig:gull}
+    \end{subfigure}
+    ~
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{ch3/fig3/BS_QvC.png}
+        %\caption{}
+    \end{subfigure}
+    \caption{Boson sampling using the same network as above, $k=3585$. The behaviour deviates significantly from classical result.}
+    \label{fig:diffxsamek}
+\end{figure}
+    
+    \item \textbf{different $k$, different $x$}
+    
+    This case is very similar to the same-$k$ boson sampling scenario above. The resulting output probability distributions (referred to as the $P$ matrix) would look the same, except now we would be able to experimentally distinguish events given by $P{i,j}$ and $P_{j,i}$, since they will occupy the same output ports but have different output $k$ orders.
+
+    
+    
+\end{itemize}
